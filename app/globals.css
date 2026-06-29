@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap");
+@import "tailwindcss";
+
+:root {
+  --white: #ffffff;
+  --ink: #111111;
+  --muted: #777777;
+  --line: #dcdcdc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--white);
+  color: var(--ink);
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--white);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+button {
+  color: inherit;
+}
+
+.kaerune-site {
+  min-height: 100svh;
+  overflow-x: hidden;
+  background: var(--white);
+}
+
+.cover-stage {
+  position: relative;
+  min-height: 100svh;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.cover-portrait {
+  position: absolute;
+  inset: 3vh 0 0;
+  z-index: 1;
+  width: 100%;
+  height: 94svh;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--white);
+  box-shadow: none;
+}
+
+.cover-image {
+  object-fit: contain;
+  object-position: 50% 50%;
+  filter: saturate(0.86) contrast(1) brightness(1.02);
+}
+
+.cover-wordmark {
+  position: absolute;
+  left: 50%;
+  bottom: 11vh;
+  z-index: 3;
+  transform: translateX(-50%);
+  width: min-content;
+  max-width: 96vw;
+  margin: 0 auto;
+  font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
+  font-size: clamp(7.2rem, 21vw, 20rem);
+  font-weight: 400;
+  line-height: 0.8;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+
+.letter-stage {
+  min-height: 100svh;
+  padding: 10vh 7vw 14vh;
+  background: var(--white);
+  color: var(--ink);
+  animation: letter-fade-in 900ms ease both;
+}
+
+.letter-body {
+  width: min(840px, 100%);
+  margin: 0 auto;
+  font-family: "Lekton", "Courier New", monospace;
+  font-size: clamp(1.28rem, 2.25vw, 2.05rem);
+  font-weight: 400;
+  line-height: 1.18;
+  text-transform: lowercase;
+}
+
+.letter-body p {
+  margin: 0 0 1.22em;
+}
+
+.letter-body p:last-of-type {
+  margin-bottom: 2.4em;
+}
+
+.waitlist-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  width: min(520px, 100%);
+  margin: 0 0 12px;
+}
+
+.waitlist-form input,
+.waitlist-form button {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--ink);
+  outline: none;
+}
+
+.waitlist-form input {
+  min-width: 0;
+  padding: 0 15px;
+}
+
+.waitlist-form input:focus {
+  border-color: var(--ink);
+}
+
+.waitlist-form button {
+  padding: 0 18px;
+  cursor: pointer;
+  transition: border-color 250ms ease, color 250ms ease;
+}
+
+.waitlist-form button:hover {
+  border-color: var(--ink);
+}
+
+.waitlist-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .cover-portrait {
+    inset: 4vh 0 0;
+    height: 92svh;
+  }
+
+  .cover-wordmark {
+    bottom: 11vh;
+    font-size: clamp(5.2rem, 24.4vw, 8.4rem);
+    max-width: 98vw;
+  }
+
+  .letter-stage {
+    padding: 8vh 24px 11vh;
+  }
+
+  .letter-body {
+    font-size: clamp(1.18rem, 5.6vw, 1.58rem);
+    line-height: 1.2;
+  }
+
+  .waitlist-form {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@keyframes letter-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
