@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 :root {
-  --white: #ffffff;
-  --ink: #111111;
-  --muted: #777777;
-  --line: #dcdcdc;
+  --white: #f7f7f5;
+  --ink: #0d0d0d;
+  --soft: rgba(13, 13, 13, 0.56);
+  --line: rgba(13, 13, 13, 0.18);
 }
 
 * {
@@ -15,7 +15,7 @@
 html {
   background: var(--white);
   color: var(--ink);
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -33,6 +33,7 @@ body {
 
 button,
 input {
+  border-radius: 0;
   font: inherit;
   letter-spacing: 0;
 }
@@ -50,138 +51,218 @@ button {
 .cover-stage {
   position: relative;
   min-height: 100svh;
-  background: var(--white);
-  cursor: pointer;
-}
-
-.cover-portrait {
-  position: absolute;
-  inset: 3vh 0 0;
-  z-index: 1;
-  width: 100%;
-  height: 94svh;
   overflow: hidden;
-  border-radius: 0;
+  isolation: isolate;
   background: var(--white);
-  box-shadow: none;
 }
 
 .cover-image {
+  z-index: 1;
   object-fit: contain;
   object-position: 50% 50%;
-  filter: saturate(0.86) contrast(1) brightness(1.02);
+  filter: saturate(0.84) contrast(1.03) brightness(1.02);
 }
 
-.cover-wordmark {
+.cover-vignette {
   position: absolute;
-  left: 50%;
-  bottom: 11vh;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(247, 247, 245, 0.42), transparent 24%, transparent 72%, rgba(247, 247, 245, 0.58)),
+    radial-gradient(circle at 50% 54%, transparent 0 42%, rgba(247, 247, 245, 0.2) 76%, rgba(247, 247, 245, 0.62));
+}
+
+.cover-grain {
+  position: absolute;
+  inset: -20%;
   z-index: 3;
-  transform: translateX(-50%);
-  width: min-content;
-  max-width: 96vw;
-  margin: 0 auto;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    repeating-radial-gradient(circle at 35% 45%, rgba(0, 0, 0, 0.18) 0 0.6px, transparent 0.8px 2.4px);
+  animation: grain-drift 7s steps(2, end) infinite;
+}
+
+.cover-mark,
+.cover-line {
+  position: absolute;
+  z-index: 4;
+  margin: 0;
+  color: rgba(13, 13, 13, 0.72);
+  text-transform: lowercase;
+}
+
+.cover-mark {
+  top: clamp(18px, 3.2vw, 44px);
+  left: clamp(18px, 3vw, 42px);
   font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
-  font-size: clamp(7.2rem, 21vw, 20rem);
-  font-weight: 400;
-  line-height: 0.8;
-  text-transform: lowercase;
-  white-space: nowrap;
+  font-size: clamp(1.15rem, 1.55vw, 1.7rem);
+  line-height: 1;
 }
 
-.letter-stage {
-  min-height: 100svh;
-  padding: 10vh 7vw 14vh;
-  background: var(--white);
-  color: var(--ink);
-  animation: letter-fade-in 900ms ease both;
-}
-
-.letter-body {
-  width: min(840px, 100%);
-  margin: 0 auto;
+.cover-line {
+  right: clamp(18px, 3vw, 42px);
+  bottom: clamp(18px, 3vw, 42px);
   font-family: "Lekton", "Courier New", monospace;
-  font-size: clamp(1.28rem, 2.25vw, 2.05rem);
+  font-size: clamp(0.82rem, 0.9vw, 0.98rem);
+  line-height: 1;
+}
+
+.signal-stage {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(72px, 9vw, 130px) clamp(20px, 6vw, 96px);
+  background: var(--white);
+}
+
+.signal-stage::before,
+.signal-stage::after {
+  position: absolute;
+  left: clamp(20px, 6vw, 96px);
+  right: clamp(20px, 6vw, 96px);
+  height: 1px;
+  content: "";
+  background: var(--line);
+}
+
+.signal-stage::before {
+  top: clamp(22px, 3.5vw, 48px);
+}
+
+.signal-stage::after {
+  bottom: clamp(22px, 3.5vw, 48px);
+}
+
+.signal-shell {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.signal-index {
+  margin: 0 0 clamp(48px, 8vw, 112px);
+  color: var(--soft);
+  font-family: "Lekton", "Courier New", monospace;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.signal-shell h1 {
+  margin: 0 0 20px;
+  font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
+  font-size: clamp(3.8rem, 12vw, 12rem);
   font-weight: 400;
-  line-height: 1.18;
+  line-height: 0.78;
   text-transform: lowercase;
 }
 
-.letter-body p {
-  margin: 0 0 1.22em;
-}
-
-.letter-body p:last-of-type {
-  margin-bottom: 2.4em;
+.signal-copy {
+  width: min(610px, 100%);
+  margin: 0 0 clamp(38px, 5vw, 72px);
+  color: rgba(13, 13, 13, 0.72);
+  font-family: "Lekton", "Courier New", monospace;
+  font-size: clamp(1.12rem, 1.55vw, 1.46rem);
+  line-height: 1.28;
+  text-transform: lowercase;
 }
 
 .waitlist-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
   width: min(520px, 100%);
-  margin: 0 0 12px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .waitlist-form input,
 .waitlist-form button {
-  min-height: 48px;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  background: var(--white);
+  min-height: 54px;
+  border: 0;
+  background: transparent;
   color: var(--ink);
   outline: none;
 }
 
 .waitlist-form input {
   min-width: 0;
-  padding: 0 15px;
+  padding: 0 16px 0 0;
 }
 
-.waitlist-form input:focus {
-  border-color: var(--ink);
+.waitlist-form input::placeholder {
+  color: rgba(13, 13, 13, 0.42);
 }
 
 .waitlist-form button {
-  padding: 0 18px;
+  padding: 0 0 0 22px;
+  border-left: 1px solid var(--line);
+  color: rgba(13, 13, 13, 0.72);
   cursor: pointer;
-  transition: border-color 250ms ease, color 250ms ease;
+  transition: color 240ms ease, padding-left 240ms ease;
 }
 
-.waitlist-form button:hover {
-  border-color: var(--ink);
+.waitlist-form button:hover,
+.waitlist-form button:focus-visible {
+  color: var(--ink);
+  padding-left: 28px;
+}
+
+.waitlist-form button:disabled {
+  cursor: wait;
+  color: rgba(13, 13, 13, 0.38);
 }
 
 .waitlist-note {
-  margin: 0;
-  color: var(--muted);
+  min-height: 1.2em;
+  margin: 14px 0 0;
+  color: var(--soft);
+  font-family: "Lekton", "Courier New", monospace;
   font-size: 0.82rem;
+  line-height: 1.2;
 }
 
 @media (max-width: 760px) {
-  .cover-portrait {
-    inset: 4vh 0 0;
-    height: 92svh;
+  .cover-image {
+    object-fit: cover;
+    object-position: 50% 50%;
   }
 
-  .cover-wordmark {
-    bottom: 11vh;
-    font-size: clamp(5.2rem, 24.4vw, 8.4rem);
-    max-width: 98vw;
+  .cover-vignette {
+    background:
+      linear-gradient(180deg, rgba(247, 247, 245, 0.5), transparent 22%, transparent 72%, rgba(247, 247, 245, 0.76)),
+      radial-gradient(circle at 50% 54%, transparent 0 36%, rgba(247, 247, 245, 0.35) 76%, rgba(247, 247, 245, 0.72));
   }
 
-  .letter-stage {
-    padding: 8vh 24px 11vh;
+  .signal-stage {
+    place-items: end start;
   }
 
-  .letter-body {
-    font-size: clamp(1.18rem, 5.6vw, 1.58rem);
-    line-height: 1.2;
+  .signal-shell h1 {
+    font-size: clamp(4rem, 23vw, 7.8rem);
+  }
+
+  .signal-copy {
+    font-size: clamp(1.04rem, 4.8vw, 1.3rem);
   }
 
   .waitlist-form {
     grid-template-columns: 1fr;
-    gap: 10px;
+  }
+
+  .waitlist-form button {
+    min-height: 48px;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    text-align: left;
+  }
+
+  .waitlist-form button:hover,
+  .waitlist-form button:focus-visible {
+    padding-left: 0;
   }
 }
 
@@ -196,13 +277,14 @@ button {
   }
 }
 
-@keyframes letter-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+@keyframes grain-drift {
+  0% {
+    transform: translate3d(-2%, -2%, 0);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    transform: translate3d(2%, 1%, 0);
+  }
+  100% {
+    transform: translate3d(-1%, 2%, 0);
   }
 }
