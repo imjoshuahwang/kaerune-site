@@ -56,40 +56,76 @@ button {
   background: var(--white);
 }
 
+.cover-stage::before,
+.cover-stage::after {
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+  content: "";
+}
+
+.cover-stage::before {
+  z-index: 2;
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(13, 13, 13, 0.18) 0,
+      rgba(13, 13, 13, 0.18) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent 28%, rgba(13, 13, 13, 0.06) 72%, rgba(255, 255, 255, 0.16));
+  animation: scan-sink 11s linear infinite;
+}
+
+.cover-stage::after {
+  z-index: 3;
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, rgba(13, 13, 13, 0.26) 0 0.55px, transparent 0.9px 2.2px),
+    repeating-radial-gradient(circle at 72% 64%, rgba(255, 255, 255, 0.42) 0 0.5px, transparent 0.8px 2.8px);
+  background-size: 121px 97px, 89px 137px;
+  animation: static-sizzle 620ms steps(3, end) infinite;
+}
+
 .cover-image {
   z-index: 1;
   object-fit: contain;
   object-position: 50% 50%;
-  filter: saturate(0.84) contrast(1.03) brightness(1.02);
+  filter: blur(0.85px) saturate(0.78) contrast(1.08) brightness(1.04);
+  animation: signal-breathe 6.8s ease-in-out infinite;
 }
 
 .cover-vignette {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(247, 247, 245, 0.42), transparent 24%, transparent 72%, rgba(247, 247, 245, 0.58)),
-    radial-gradient(circle at 50% 54%, transparent 0 42%, rgba(247, 247, 245, 0.2) 76%, rgba(247, 247, 245, 0.62));
+    linear-gradient(180deg, rgba(247, 247, 245, 0.18), transparent 22%, transparent 75%, rgba(247, 247, 245, 0.28)),
+    radial-gradient(circle at 50% 54%, transparent 0 42%, rgba(247, 247, 245, 0.12) 76%, rgba(247, 247, 245, 0.24));
 }
 
 .cover-grain {
   position: absolute;
   inset: -20%;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
-  opacity: 0.18;
+  opacity: 0.3;
   mix-blend-mode: multiply;
   background-image:
-    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 42%),
-    repeating-radial-gradient(circle at 35% 45%, rgba(0, 0, 0, 0.18) 0 0.6px, transparent 0.8px 2.4px);
-  animation: grain-drift 7s steps(2, end) infinite;
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 38%),
+    repeating-radial-gradient(circle at 35% 45%, rgba(0, 0, 0, 0.24) 0 0.55px, transparent 0.85px 2.2px);
+  animation: grain-drift 1.4s steps(2, end) infinite;
 }
 
 .cover-mark,
 .cover-line {
   position: absolute;
-  z-index: 4;
+  z-index: 6;
   margin: 0;
   color: rgba(13, 13, 13, 0.72);
   text-transform: lowercase;
@@ -104,11 +140,20 @@ button {
 }
 
 .cover-line {
-  right: clamp(18px, 3vw, 42px);
-  bottom: clamp(18px, 3vw, 42px);
-  font-family: "Lekton", "Courier New", monospace;
-  font-size: clamp(0.82rem, 0.9vw, 0.98rem);
-  line-height: 1;
+  left: 50%;
+  bottom: clamp(10px, 1.8vw, 30px);
+  width: 96vw;
+  transform: translateX(-50%);
+  color: rgba(13, 13, 13, 0.44);
+  font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
+  font-size: clamp(5.6rem, 11.2vw, 12.6rem);
+  line-height: 0.74;
+  text-align: center;
+  text-shadow:
+    0 0 10px rgba(13, 13, 13, 0.1),
+    1px 0 0 rgba(255, 255, 255, 0.28),
+    -1px 0 0 rgba(13, 13, 13, 0.12);
+  white-space: nowrap;
 }
 
 .signal-stage {
@@ -184,6 +229,9 @@ button {
   border: 0;
   background: transparent;
   color: var(--ink);
+  font-family: "Lekton", "Courier New", monospace;
+  font-size: clamp(1.04rem, 1.26vw, 1.32rem);
+  line-height: 1;
   outline: none;
 }
 
@@ -199,7 +247,7 @@ button {
 .waitlist-form button {
   padding: 0 0 0 22px;
   border-left: 1px solid var(--line);
-  color: rgba(13, 13, 13, 0.72);
+  color: rgba(13, 13, 13, 0.66);
   cursor: pointer;
   transition: color 240ms ease, padding-left 240ms ease;
 }
@@ -232,8 +280,13 @@ button {
 
   .cover-vignette {
     background:
-      linear-gradient(180deg, rgba(247, 247, 245, 0.5), transparent 22%, transparent 72%, rgba(247, 247, 245, 0.76)),
-      radial-gradient(circle at 50% 54%, transparent 0 36%, rgba(247, 247, 245, 0.35) 76%, rgba(247, 247, 245, 0.72));
+      linear-gradient(180deg, rgba(247, 247, 245, 0.22), transparent 22%, transparent 72%, rgba(247, 247, 245, 0.42)),
+      radial-gradient(circle at 50% 54%, transparent 0 36%, rgba(247, 247, 245, 0.16) 76%, rgba(247, 247, 245, 0.34));
+  }
+
+  .cover-line {
+    bottom: clamp(18px, 7vw, 48px);
+    font-size: clamp(3.2rem, 13.8vw, 5.5rem);
   }
 
   .signal-stage {
@@ -286,5 +339,39 @@ button {
   }
   100% {
     transform: translate3d(-1%, 2%, 0);
+  }
+}
+
+@keyframes scan-sink {
+  from {
+    transform: translateY(-3%);
+  }
+  to {
+    transform: translateY(3%);
+  }
+}
+
+@keyframes static-sizzle {
+  0% {
+    transform: translate3d(-2%, 1%, 0);
+  }
+  33% {
+    transform: translate3d(2%, -1%, 0);
+  }
+  66% {
+    transform: translate3d(1%, 2%, 0);
+  }
+  100% {
+    transform: translate3d(-1%, -2%, 0);
+  }
+}
+
+@keyframes signal-breathe {
+  0%,
+  100% {
+    filter: blur(0.75px) saturate(0.8) contrast(1.06) brightness(1.04);
+  }
+  45% {
+    filter: blur(1.22px) saturate(0.72) contrast(1.12) brightness(1.06);
   }
 }
