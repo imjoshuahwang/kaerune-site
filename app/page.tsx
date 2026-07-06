@@ -9,6 +9,7 @@ const explanation =
 export default function Home() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [showInfo, setShowInfo] = useState(false);
 
   async function joinWaitlist(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,44 +37,56 @@ export default function Home() {
     <main className="kaerune-site">
       <section className="cover-stage" aria-label="kaerune">
         <Image
-          src="/media/kaerune-cover.png"
+          src="/media/kaerune-alone.png"
           alt=""
           fill
           priority
           sizes="100vw"
           className="cover-image"
         />
-        <div className="cover-vignette" aria-hidden="true" />
-        <div className="cover-grain" aria-hidden="true" />
-        <p className="cover-mark">kaerune</p>
-        <p className="cover-line">unbecome one.</p>
-      </section>
+        <div className="cover-fade" aria-hidden="true" />
+        <div className="cover-noise" aria-hidden="true" />
 
-      <section className="signal-stage" aria-labelledby="signal-title">
-        <div className="signal-shell">
-          <p className="signal-index">001</p>
-          <h1 id="signal-title">kaerune</h1>
-          <p className="signal-copy">{explanation}</p>
-          <form className="waitlist-form" onSubmit={joinWaitlist}>
-            <input
-              aria-label="email address"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <button type="submit" disabled={status === "saving"}>
-              {status === "saving" ? "saving" : "request entry"}
-            </button>
+        <p className="site-mark">kaerune</p>
+
+        <div className="corner-actions">
+          <button
+            className="plain-button"
+            type="button"
+            aria-expanded={showInfo}
+            onClick={() => setShowInfo((value) => !value)}
+          >
+            what is this
+          </button>
+
+          {showInfo && <p className="info-copy">{explanation}</p>}
+
+          <form className="waitlist-panel" onSubmit={joinWaitlist}>
+            <label className="waitlist-title" htmlFor="waitlist-email">
+              unbecome one.
+            </label>
+            <div className="waitlist-row">
+              <input
+                id="waitlist-email"
+                aria-label="email address"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="email"
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <button type="submit" disabled={status === "saving"}>
+                {status === "saving" ? "saving" : "join waitlist"} <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p className="waitlist-note" role="status" aria-live="polite">
+              {status === "saved" && "saved."}
+              {status === "error" && "try again."}
+              {status === "idle" && "waitlist."}
+            </p>
           </form>
-          <p className="waitlist-note" role="status" aria-live="polite">
-            {status === "saved" && "saved."}
-            {status === "error" && "try again."}
-            {status === "idle" && "waitlist."}
-          </p>
         </div>
       </section>
     </main>
