@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: "Kaerune",
   description: "Unbecome one.",
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png"
+    icon: "/icon.svg",
+    apple: "/icon.svg"
   }
 };
 
