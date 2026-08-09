@@ -3,8 +3,7 @@
 :root {
   --paper: #ffffff;
   --ink: #050505;
-  --muted: rgba(5, 5, 5, 0.48);
-  --line: rgba(5, 5, 5, 0.18);
+  --muted: rgba(5, 5, 5, 0.42);
 }
 
 * {
@@ -23,163 +22,101 @@ body {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-input {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  letter-spacing: 0;
-}
-
-button {
-  cursor: pointer;
-}
-
-.kaerune-site {
+.page {
   position: relative;
   display: grid;
-  min-height: 100svh;
   width: 100vw;
-  place-items: start center;
+  min-height: 100svh;
+  place-items: center;
   overflow: hidden;
   background: var(--paper);
 }
 
-.about-button {
+/* Left plate, full viewport height. The artwork's own field is white, so
+   multiplying it into the page and fading the trailing edge dissolves the
+   frame — no visible ridge between picture and paper. */
+.halftone {
   position: fixed;
-  top: clamp(18px, 3.1vh, 34px);
-  left: 50%;
-  z-index: 2;
-  transform: translateX(-50%);
-  color: var(--muted);
-  font-size: clamp(0.78rem, 0.95vw, 0.98rem);
-  line-height: 1;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  height: 100svh;
+  pointer-events: none;
 }
 
-.about-button:hover,
-.about-button:focus-visible {
-  color: var(--ink);
-  outline: none;
+.halftone img {
+  display: block;
+  width: auto;
+  height: 100%;
+  opacity: 0.86;
+  mix-blend-mode: multiply;
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0%, #000 46%, rgba(0, 0, 0, 0.55) 74%, transparent 99%),
+    linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, #000 0%, #000 46%, rgba(0, 0, 0, 0.55) 74%, transparent 99%),
+    linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
-.hero {
+.mark {
+  position: relative;
+  z-index: 1;
   display: grid;
-  width: 100vw;
-  min-height: 100svh;
-  align-content: start;
   justify-items: center;
-  padding: clamp(90px, 16vh, 150px) 0 0;
+  padding: 0 clamp(20px, 5vw, 64px);
+  text-align: center;
 }
 
-.hero h1 {
-  width: 100vw;
+.mark h1 {
   margin: 0;
   color: var(--ink);
   font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
-  font-size: clamp(6.4rem, 22.5vw, 28rem);
+  font-size: clamp(3.4rem, 9.5vw, 10rem);
   font-weight: 400;
-  line-height: 0.76;
-  text-align: center;
+  line-height: 0.84;
   text-transform: lowercase;
   white-space: nowrap;
 }
 
-.about-copy {
-  width: min(520px, calc(100vw - 36px));
-  margin: clamp(22px, 3vh, 34px) 0 0;
+.mark p {
+  margin: clamp(44px, 10vh, 120px) 0 0;
   color: var(--muted);
-  font-size: clamp(0.88rem, 1.05vw, 1rem);
-  line-height: 1.36;
-  text-align: center;
-  text-transform: lowercase;
-}
-
-.waitlist-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  width: min(330px, calc(100vw - 40px));
-  min-height: 42px;
-  margin: clamp(28px, 5vh, 58px) 0 0;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-}
-
-.waitlist-form input,
-.waitlist-form button {
-  min-width: 0;
-  min-height: 42px;
-  outline: none;
-  font-size: 0.86rem;
+  font-size: clamp(0.7rem, 0.95vw, 0.9rem);
   line-height: 1;
-}
-
-.waitlist-form input {
-  padding: 0 0 0 17px;
-}
-
-.waitlist-form input::placeholder {
-  color: rgba(5, 5, 5, 0.34);
-}
-
-.waitlist-form button {
-  padding: 0 17px;
-  border-left: 1px solid var(--line);
-  color: rgba(5, 5, 5, 0.72);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  text-transform: lowercase;
   white-space: nowrap;
 }
 
-.waitlist-form button:hover,
-.waitlist-form button:focus-visible {
-  color: var(--ink);
-}
-
-.waitlist-form button:disabled {
-  cursor: wait;
-  color: rgba(5, 5, 5, 0.34);
-}
-
-.waitlist-note {
-  min-height: 1em;
-  margin: 10px 0 0;
-  color: rgba(5, 5, 5, 0.34);
-  font-size: 0.7rem;
-  line-height: 1;
-  text-align: center;
-  text-transform: lowercase;
-}
-
-@media (max-width: 760px) {
-  .hero {
-    padding-top: clamp(94px, 18vh, 150px);
+@media (max-width: 860px) {
+  /* Portrait: the plate becomes a full-bleed wash the wordmark sits on. */
+  .halftone {
+    left: 50%;
+    height: 100svh;
+    transform: translateX(-50%);
   }
 
-  .hero h1 {
-    font-size: clamp(5.2rem, 27vw, 8.4rem);
+  .halftone img {
+    opacity: 0.22;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
   }
 
-  .waitlist-form {
-    grid-template-columns: 1fr;
-    width: min(260px, calc(100vw - 40px));
-    border-radius: 24px;
+  .mark h1 {
+    font-size: min(17vw, 5.4rem);
   }
 
-  .waitlist-form input {
-    min-height: 40px;
-    padding: 0 14px;
-    text-align: center;
-  }
-
-  .waitlist-form button {
-    min-height: 40px;
-    border-top: 1px solid var(--line);
-    border-left: 0;
+  .mark p {
+    margin-top: clamp(36px, 8vh, 72px);
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
   }
 }
