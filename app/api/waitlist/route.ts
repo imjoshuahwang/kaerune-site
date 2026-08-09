@@ -83,8 +83,22 @@ export async function POST(request: NextRequest) {
     user_agent: userAgent
   };
 
-  if (!(await saveToSupabase(record))) {
-    await saveToCsv(record);
+  try {
+    if (!(await saveToSupabase(record))) {
+      if (process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+          { error: "waitlist storage is not configured" },
+          { status: 503 }
+        );
+      }
+
+      await saveToCsv(record);
+    }
+  } catch {
+    return NextResponse.json(
+      { error: "could not save your email" },
+      { status: 502 }
+    );
   }
 
   return NextResponse.json({ ok: true });
