@@ -7,9 +7,10 @@ import { useEffect, useRef } from "react";
    then settling back to white. */
 
 const CELL = 13; // grid pitch in CSS px
-const BRUSH = 3.4; // brush radius in cells
-const LIFE = 1200; // ms a dot takes to fade out
-const DOT_RATIO = 0.34;
+const BRUSH = 1.9; // brush radius in cells
+const LIFE = 850; // ms a dot takes to fade out
+const DOT_RATIO = 0.28;
+const INK = 0.2; // peak dot opacity
 const MAX_CELLS = 5000;
 
 /* Deterministic per-cell noise so the brush edge dithers instead of drawing a
@@ -92,7 +93,7 @@ export function PixelField() {
           continue;
         }
         const life = 1 - age / LIFE;
-        ctx.fillStyle = `rgba(5, 5, 5, ${(life * 0.42).toFixed(3)})`;
+        ctx.fillStyle = `rgba(5, 5, 5, ${(life * INK).toFixed(3)})`;
         ctx.beginPath();
         ctx.arc(
           cell.x * CELL + CELL / 2,
