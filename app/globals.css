@@ -39,8 +39,10 @@ body {
   white-space: nowrap;
 }
 
-/* Cursor-driven dot field. Sits above the page background but below content,
-   so the paper looks printed on without anything else moving. */
+/* Both fields sit above the page background but below content, so the paper
+   looks printed on without anything else moving. The ASCII texture is the
+   deeper layer; the cursor dots print over it. */
+.ascii-field,
 .pixel-field {
   position: fixed;
   inset: 0;
@@ -115,27 +117,6 @@ body {
   line-height: 1;
   letter-spacing: 0.01em;
   text-transform: lowercase;
-}
-
-.enter-story {
-  position: absolute;
-  z-index: 1;
-  right: clamp(24px, 4vw, 56px);
-  bottom: clamp(24px, 4vw, 48px);
-  color: var(--ink);
-  font-size: 0.7rem;
-  letter-spacing: 0.13em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.enter-story::after {
-  display: block;
-  width: 1px;
-  height: 26px;
-  margin: 10px auto 0;
-  background: currentColor;
-  content: "";
 }
 
 /* Just long enough to darken the three lines and hand over the form. */

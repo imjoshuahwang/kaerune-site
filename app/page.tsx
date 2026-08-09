@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { AsciiField } from "../components/AsciiField";
 import { DotWordmark } from "../components/DotWordmark";
 import { PixelField } from "../components/PixelField";
 
@@ -76,6 +77,7 @@ export default function Home() {
 
   return (
     <main>
+      <AsciiField />
       <PixelField />
 
       <section className="landing" aria-labelledby="site-title">
@@ -95,10 +97,6 @@ export default function Home() {
           </h1>
           <p>unbecome one</p>
         </div>
-
-        <a className="enter-story" href="#many">
-          enter
-        </a>
       </section>
 
       <section className="story" id="many" ref={storyRef} aria-labelledby="poem-title">
