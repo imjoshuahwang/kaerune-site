@@ -104,19 +104,24 @@ body {
   color: var(--ink);
 }
 
-.dot-wordmark canvas {
+.dot-wordmark canvas,
+.dot-tagline canvas {
   display: block;
 }
 
-/* Set off to one side rather than centred under the wordmark. */
+.dot-tagline {
+  display: block;
+}
+
+/* Set off to one side rather than centred under the wordmark. The line is set
+   in the same dot grid as the wordmark, so it needs enough size for the
+   letterforms to resolve on the grid. */
 .mark p {
   justify-self: end;
   margin: clamp(30px, 5.5vh, 62px) 0 0;
   color: var(--muted);
-  font-size: clamp(1.15rem, 2vw, 1.9rem);
+  font-size: clamp(2.1rem, 3.2vw, 2.8rem);
   line-height: 1;
-  letter-spacing: 0.01em;
-  text-transform: lowercase;
 }
 
 /* Just long enough to darken the three lines and hand over the form. */
@@ -238,7 +243,7 @@ body {
 
   .mark p {
     margin-top: clamp(26px, 5vh, 48px);
-    font-size: 1.15rem;
+    font-size: 2.1rem;
   }
 
   .waitlist-row {

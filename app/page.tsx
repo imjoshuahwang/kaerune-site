@@ -95,7 +95,10 @@ export default function Home() {
             <span className="sr-only">kaerune</span>
             <DotWordmark className="dot-wordmark" text="kaerune" />
           </h1>
-          <p>unbecome one</p>
+          <p>
+            <span className="sr-only">unbecome one</span>
+            <DotWordmark className="dot-tagline" text="unbecome one" />
+          </p>
         </div>
       </section>
 
