@@ -71,15 +71,17 @@ body {
   justify-items: center;
   padding: 0 clamp(20px, 5vw, 64px);
   text-align: center;
+  /* Nudged off centre so the wordmark clears the plate's faded tail. */
+  transform: translateX(clamp(24px, 5.5vw, 110px));
 }
 
 .mark h1 {
   margin: 0;
   color: var(--ink);
-  font-family: Didot, "Bodoni 72", "Times New Roman", Georgia, serif;
-  font-size: clamp(3.4rem, 9.5vw, 10rem);
+  font-size: clamp(3rem, 8.4vw, 9rem);
   font-weight: 400;
-  line-height: 0.84;
+  line-height: 0.86;
+  letter-spacing: -0.025em;
   text-transform: lowercase;
   white-space: nowrap;
 }
@@ -87,10 +89,10 @@ body {
 .mark p {
   margin: clamp(44px, 10vh, 120px) 0 0;
   color: var(--muted);
-  font-size: clamp(0.7rem, 0.95vw, 0.9rem);
+  font-size: clamp(0.95rem, 1.45vw, 1.35rem);
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.42em;
-  text-indent: 0.42em;
+  letter-spacing: 0.01em;
   text-transform: lowercase;
   white-space: nowrap;
 }
@@ -109,14 +111,16 @@ body {
     mask-image: linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
   }
 
+  .mark {
+    transform: none;
+  }
+
   .mark h1 {
-    font-size: min(17vw, 5.4rem);
+    font-size: min(16vw, 5rem);
   }
 
   .mark p {
     margin-top: clamp(36px, 8vh, 72px);
-    font-size: 0.66rem;
-    letter-spacing: 0.34em;
-    text-indent: 0.34em;
+    font-size: 1rem;
   }
 }
