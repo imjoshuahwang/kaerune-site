@@ -36,6 +36,15 @@ main {
   width: min(100%, 560px);
 }
 
+.logo {
+  display: block;
+  width: clamp(28px, 5vw, 36px);
+  height: clamp(28px, 5vw, 36px);
+  margin: 0 0 clamp(16px, 3vh, 24px);
+  color: var(--faint);
+  overflow: visible;
+}
+
 .sheet h1 {
   margin: 0;
   color: var(--ink);
