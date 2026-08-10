@@ -54,18 +54,19 @@ main {
   line-height: 1;
 }
 
-.tagline {
-  margin: 12px 0 0;
-  color: var(--faint);
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  line-height: 1;
-}
-
 .about {
   margin: clamp(36px, 6vh, 56px) 0 0;
-  color: var(--soft);
+  color: var(--faint);
   font-size: clamp(0.95rem, 1.4vw, 1.05rem);
-  line-height: 1.75;
+  line-height: 2;
+}
+
+.about span {
+  display: block;
+}
+
+.about .last {
+  color: var(--soft);
 }
 
 .waitlist {

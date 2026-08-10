@@ -46,13 +46,13 @@ export default function Home() {
         </svg>
 
         <h1>kaerune</h1>
-        <p className="tagline">unbecome one</p>
 
         <p className="about">
-          Kaerune is a copy of yourself that learns how you think and act. It watches the
-          shape of your judgment — what you weigh, what you ignore, how you decide when no
-          one is asking — and carries it forward on your behalf. The more it sees, the
-          closer it gets, until the work only you could do no longer has to wait for you.
+          <span>unbecome the one who has to be in the room.</span>
+          <span>unbecome the hours only you can spend.</span>
+          <span>unbecome the work that waits for you.</span>
+          <span>unbecome the single self.</span>
+          <span className="last">unbecome one.</span>
         </p>
 
         <form className="waitlist" onSubmit={joinWaitlist}>
