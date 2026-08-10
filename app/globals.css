@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
+/* All white paper. Nothing on it is darker than a medium grey. */
 :root {
   --paper: #ffffff;
-  --ink: #050505;
-  --muted: rgba(5, 5, 5, 0.42);
-  --rule: rgba(5, 5, 5, 0.22);
+  --ink: #7a7a7a;
+  --soft: #a3a3a3;
+  --faint: #c4c4c4;
+  --rule: #e4e4e4;
 }
 
 * {
@@ -13,162 +15,69 @@
 
 html {
   background: var(--paper);
-  scroll-behavior: smooth;
 }
 
-/* The paper colour lives on the root only. A background here would paint over
-   .pixel-field, which sits at z-index -1. */
 body {
-  width: 100%;
-  min-height: 100%;
   margin: 0;
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
-  text-rendering: geometricPrecision;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* Both fields sit above the page background but below content, so the paper
-   looks printed on without anything else moving. The ASCII texture is the
-   deeper layer; the cursor dots print over it. */
-.ascii-field,
-.pixel-field {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.landing {
-  position: relative;
+main {
   display: grid;
-  width: 100%;
   min-height: 100svh;
   place-items: center;
-  overflow: hidden;
+  padding: clamp(48px, 10vh, 120px) 24px;
 }
 
-.halftone {
-  position: absolute;
-  inset: 0 auto 0 0;
-  z-index: 0;
-  height: 100%;
-  pointer-events: none;
+.sheet {
+  width: min(100%, 560px);
 }
 
-.halftone img {
+.logo {
   display: block;
-  width: auto;
-  height: 100%;
-  opacity: 0.86;
-  mix-blend-mode: multiply;
-  -webkit-mask-image:
-    linear-gradient(to right, #000 0%, #000 46%, rgba(0, 0, 0, 0.55) 74%, transparent 99%),
-    linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
-  mask-image:
-    linear-gradient(to right, #000 0%, #000 46%, rgba(0, 0, 0, 0.55) 74%, transparent 99%),
-    linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  width: clamp(28px, 5vw, 36px);
+  height: clamp(28px, 5vw, 36px);
+  margin: 0 0 clamp(16px, 3vh, 24px);
+  color: var(--faint);
+  overflow: visible;
 }
 
-.mark {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  justify-items: center;
-  padding: 0 clamp(20px, 5vw, 64px);
-  transform: translateX(clamp(24px, 5.5vw, 110px));
-}
-
-.mark h1 {
+.sheet h1 {
   margin: 0;
-  /* Read by DotWordmark to size the grid — the canvas draws at this scale. */
-  font-size: clamp(3rem, 8.4vw, 9rem);
-  line-height: 1;
-}
-
-.dot-wordmark {
-  display: block;
   color: var(--ink);
-}
-
-.dot-wordmark canvas,
-.dot-tagline canvas {
-  display: block;
-}
-
-.dot-tagline {
-  display: block;
-}
-
-/* Set off to one side rather than centred under the wordmark. The line is set
-   in the same dot grid as the wordmark, so it needs enough size for the
-   letterforms to resolve on the grid. */
-.mark p {
-  justify-self: end;
-  margin: clamp(30px, 5.5vh, 62px) 0 0;
-  color: var(--muted);
-  font-size: clamp(2.1rem, 3.2vw, 2.8rem);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
   line-height: 1;
 }
 
-/* Just long enough to darken the three lines and hand over the form. */
-.story {
-  position: relative;
-  height: 230svh;
+.about {
+  margin: clamp(36px, 6vh, 56px) 0 0;
+  color: var(--faint);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  line-height: 2;
 }
 
-.story-sticky {
-  position: sticky;
-  top: 0;
-  display: grid;
-  min-height: 100svh;
-  place-items: center;
-  padding: clamp(48px, 9vh, 96px) 0;
+.about span {
+  display: block;
 }
 
-.poem-wrap {
-  width: min(100% - 48px, 1100px);
-  text-align: center;
-}
-
-.poem {
-  display: grid;
-  margin: 0;
-  /* Room for the descenders in "judgment" — a tighter box clips them. */
-  padding-bottom: 0.12em;
-  font-size: clamp(2.1rem, 6.4vw, 6.4rem);
-  font-weight: 400;
-  line-height: 1.14;
-  letter-spacing: -0.04em;
-  text-transform: lowercase;
+.about .last {
+  color: var(--soft);
 }
 
 .waitlist {
-  width: min(100%, 560px);
-  margin: clamp(48px, 9vh, 96px) auto 0;
-  color: var(--ink);
-  text-align: left;
+  margin: clamp(36px, 6vh, 56px) 0 0;
 }
 
 .waitlist label {
   display: block;
-  margin-bottom: 14px;
-  color: var(--muted);
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+  color: var(--faint);
+  font-size: 0.85rem;
   text-transform: lowercase;
 }
 
@@ -181,17 +90,17 @@ body {
 .waitlist input {
   width: 100%;
   min-width: 0;
-  padding: 12px 0;
+  padding: 10px 0;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--ink);
   font: inherit;
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-size: 0.95rem;
 }
 
 .waitlist input::placeholder {
-  color: rgba(5, 5, 5, 0.3);
+  color: var(--faint);
 }
 
 .waitlist button {
@@ -199,56 +108,35 @@ body {
   padding: 0 0 0 24px;
   border: 0;
   background: transparent;
-  color: var(--ink);
+  color: var(--soft);
   cursor: pointer;
   font: inherit;
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-  letter-spacing: 0.02em;
+  font-size: 0.9rem;
   text-transform: lowercase;
+}
+
+.waitlist button:hover:not(:disabled) {
+  color: var(--ink);
 }
 
 .waitlist button:disabled,
 .waitlist input:disabled {
   cursor: default;
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
 .form-status {
   min-height: 1.3em;
   margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 0.85rem;
+  color: var(--faint);
+  font-size: 0.8rem;
   text-transform: lowercase;
 }
 
-@media (max-width: 860px) {
-  .halftone {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .halftone img {
-    opacity: 0.22;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 2%, #000 98%, transparent 100%);
-  }
-
-  .mark {
-    transform: none;
-  }
-
-  .mark h1 {
-    font-size: min(15vw, 4.6rem);
-  }
-
-  .mark p {
-    margin-top: clamp(26px, 5vh, 48px);
-    font-size: 2.1rem;
-  }
-
+@media (max-width: 560px) {
   .waitlist-row {
     display: grid;
-    gap: 14px;
+    gap: 12px;
     border: 0;
   }
 
@@ -259,11 +147,5 @@ body {
   .waitlist button {
     justify-self: start;
     padding: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
