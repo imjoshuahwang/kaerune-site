@@ -1,12 +1,12 @@
 export default function Home() {
   return (
     <main>
-      <div className="sheet">
+      <section className="mark-panel" aria-label="Abstract K mark">
         <svg
           className="logo"
           viewBox="0 0 64 64"
           role="img"
-          aria-label="Kaerune logo"
+          aria-label="Abstract K mark"
         >
           <g fill="none" stroke="currentColor" strokeWidth="9">
             <path d="M21 -6V27" />
@@ -15,9 +15,10 @@ export default function Home() {
             <path d="M42 42 70 70" />
           </g>
         </svg>
-        <p className="eyebrow">Kaerune</p>
+      </section>
+      <section className="copy-panel">
         <h1>no dead web.</h1>
-      </div>
+      </section>
     </main>
   );
 }

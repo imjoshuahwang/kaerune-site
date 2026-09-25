@@ -3,7 +3,6 @@
 :root {
   --paper: #ffffff;
   --ink: #7a7a7a;
-  --soft: #a3a3a3;
   --faint: #c4c4c4;
 }
 
@@ -27,54 +26,75 @@ body {
 main {
   display: grid;
   min-height: 100svh;
-  place-items: center;
-  padding: 2rem;
-  text-align: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
 }
 
-.sheet {
-  display: flex;
-  width: min(100%, 74rem);
-  flex-direction: column;
-  align-items: center;
+.mark-panel,
+.copy-panel {
+  min-width: 0;
+  min-height: 100svh;
+}
+
+.mark-panel {
+  position: relative;
+  overflow: hidden;
 }
 
 .logo {
-  width: clamp(2rem, 3vw, 2.7rem);
-  height: clamp(2rem, 3vw, 2.7rem);
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 110svh;
+  height: 110svh;
   color: var(--faint);
   overflow: visible;
+  transform: translate(-38%, -5%);
 }
 
-.eyebrow {
-  margin: 0 0 clamp(1.25rem, 2.4vw, 2rem);
-  color: var(--soft);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(0.68rem, 0.8vw, 0.82rem);
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  line-height: 1;
-  text-transform: uppercase;
+.copy-panel {
+  display: flex;
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 5rem);
 }
 
 h1 {
-  max-width: 7ch;
+  max-width: 6.5ch;
   margin: 0;
   color: var(--ink);
   font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
-  font-size: clamp(4.5rem, 10vw, 10.5rem);
+  font-size: clamp(5.5rem, 13.8vw, 15.5rem);
   font-weight: 400;
-  letter-spacing: -0.065em;
-  line-height: 0.84;
+  letter-spacing: -0.075em;
+  line-height: 0.78;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   main {
-    padding: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 42svh 58svh;
+  }
+
+  .mark-panel,
+  .copy-panel {
+    min-height: 0;
+  }
+
+  .logo {
+    top: 50%;
+    left: 50%;
+    width: 88vw;
+    height: 88vw;
+    transform: translate(-50%, -50%);
+  }
+
+  .copy-panel {
+    align-items: flex-start;
+    padding: 0 1.5rem 2rem;
   }
 
   h1 {
-    font-size: clamp(4rem, 18vw, 6rem);
+    max-width: 7ch;
+    font-size: clamp(4.5rem, 20vw, 8rem);
   }
 }
